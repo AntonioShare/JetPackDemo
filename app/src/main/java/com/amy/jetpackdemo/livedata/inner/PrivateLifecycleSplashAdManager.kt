@@ -1,8 +1,9 @@
-package com.amy.jetpackdemo.livedata
+package com.amy.jetpackdemo.livedata.inner
 
 import android.os.CountDownTimer
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.amy.jetpackdemo.uitls.Trace
 
@@ -11,7 +12,9 @@ import com.amy.jetpackdemo.uitls.Trace
  * @author Antonio
  * @date 2023/4/18
  */
-class LifecycleSplashAdManager(mTimingLiveData: MutableLiveData<Int>) : DefaultLifecycleObserver {
+class PrivateLifecycleSplashAdManager : DefaultLifecycleObserver {
+    private var mTimingLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+    val timingLiveData: LiveData<Int> get() = mTimingLiveData
 
     companion object {
         //TAG

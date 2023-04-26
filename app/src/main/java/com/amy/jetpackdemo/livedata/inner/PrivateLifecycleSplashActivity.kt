@@ -1,12 +1,11 @@
-package com.amy.jetpackdemo.livedata
+package com.amy.jetpackdemo.livedata.inner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import com.amy.jetpackdemo.MainActivity
 import com.amy.jetpackdemo.databinding.ActivitySplashBinding
+import com.amy.jetpackdemo.livedata.LifecycleSplashAdManager
 
 /**
  *
@@ -14,14 +13,13 @@ import com.amy.jetpackdemo.databinding.ActivitySplashBinding
  * @author Antonio
  * @date 2023/4/18
  */
-class LifecycleSplashActivity : AppCompatActivity() {
+class PrivateLifecycleSplashActivity : AppCompatActivity() {
 
-    private var mTimingLiveData = MutableLiveData<Int>()
 
     private lateinit var binding: ActivitySplashBinding
 
-    private val splashAdManager: LifecycleSplashAdManager by lazy {
-        LifecycleSplashAdManager(mTimingLiveData)
+    private val splashAdManager: PrivateLifecycleSplashAdManager by lazy {
+        PrivateLifecycleSplashAdManager()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,14 +45,13 @@ class LifecycleSplashActivity : AppCompatActivity() {
      * 广告初始化
      */
     private fun initAd() {
-        lifecycle.addObserver(splashAdManager)
-
-        mTimingLiveData.observe(this) {
+        splashAdManager.timingLiveData.observe(this) {
             binding.adJumpButton.text = "$it|点击跳过"
             if (it == 0) {
-                MainActivity.start(this@LifecycleSplashActivity)
+                MainActivity.start(this@PrivateLifecycleSplashActivity)
                 finish()
             }
         }
+        lifecycle.addObserver(splashAdManager)
     }
 }
