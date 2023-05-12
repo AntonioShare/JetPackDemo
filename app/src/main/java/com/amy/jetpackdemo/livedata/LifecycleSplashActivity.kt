@@ -3,6 +3,7 @@ package com.amy.jetpackdemo.livedata
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.amy.jetpackdemo.MainActivity
@@ -50,11 +51,12 @@ class LifecycleSplashActivity : AppCompatActivity() {
         lifecycle.addObserver(splashAdManager)
 
         mTimingLiveData.observe(this) {
-            binding.adJumpButton.text = "$it|点击跳过"
+            binding.adJumpButton.text = "$it|333232点击跳过"
             if (it == 0) {
                 MainActivity.start(this@LifecycleSplashActivity)
                 finish()
             }
         }
+        mTimingLiveData.value = 223
     }
 }

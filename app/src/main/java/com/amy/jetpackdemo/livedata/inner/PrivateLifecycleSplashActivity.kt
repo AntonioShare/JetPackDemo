@@ -45,6 +45,7 @@ class PrivateLifecycleSplashActivity : AppCompatActivity() {
      * 广告初始化
      */
     private fun initAd() {
+
         splashAdManager.timingLiveData.observe(this) {
             binding.adJumpButton.text = "$it|点击跳过"
             if (it == 0) {
